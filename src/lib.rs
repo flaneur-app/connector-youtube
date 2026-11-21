@@ -13,6 +13,7 @@
 //! keyring) and otherwise keeps it in memory only. RustyPipe's cache, which would store the
 //! cookie in a JSON file, is given a storage that strips it (see [`Config::cache_file`]).
 
+mod actions;
 mod cursor;
 mod error;
 mod map;
@@ -20,6 +21,7 @@ mod raw;
 mod session;
 mod storage;
 mod text;
+mod tracking;
 mod urls;
 
 pub use map::SERVICE;
