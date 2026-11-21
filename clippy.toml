@@ -1,0 +1,2 @@
+# Proper nouns used throughout the docs; ".." keeps clippy's default list.
+doc-valid-idents = ["YouTube", "RustyPipe", "InnerTube", "PoToken", "..", ]
