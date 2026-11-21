@@ -19,7 +19,6 @@ use rustypipe::model::traits::FromYtItem;
 use rustypipe::param::Language;
 use serde::de::DeserializeOwned;
 use serde_json::{Value, json};
-use url::Url;
 
 use crate::actions::{self, Action};
 use crate::session::{Redactor, cookie_header, youtube_cookie_file};
@@ -52,9 +51,7 @@ pub(crate) struct Active {
 /// [`Session`] handed to the app, nowhere else.
 pub struct YouTube {
     info: ServiceInfo,
-    cache: Arc<CacheStore>,
-    botguard: bool,
-    client: RwLock<RustyPipe>,
+    client: RustyPipe,
     session: RwLock<Option<Arc<Active>>>,
     pub(crate) http: reqwest::Client,
 }
@@ -97,19 +94,14 @@ impl YouTube {
                 name: "YouTube".into(),
                 auth_methods: vec![AuthMethod::Cookies],
             },
-            cache,
-            botguard: config.botguard,
-            client: RwLock::new(client),
+            client,
             session: RwLock::new(None),
             http,
         })
     }
 
     pub(crate) fn client(&self) -> RustyPipe {
-        self.client
-            .read()
-            .unwrap_or_else(PoisonError::into_inner)
-            .clone()
+        self.client.clone()
     }
 
     /// An anonymous query, or one that uses the session for what needs it.
@@ -253,6 +245,7 @@ impl Connector for YouTube {
             related: Anonymous,
             history_read: SignedIn,
             history_write: SignedIn,
+            public_playlists: Anonymous,
             playlists_read: SignedIn,
             playlists_write: SignedIn,
             subscriptions_read: SignedIn,
@@ -260,6 +253,7 @@ impl Connector for YouTube {
             reactions_write: SignedIn,
             comments_read: Anonymous,
             comments_write: SignedIn,
+            comment_replies_write: SignedIn,
         }
     }
 
@@ -282,17 +276,17 @@ impl Connector for YouTube {
         self.activate(&session.secret).await.map(|_| ())
     }
 
-    fn sign_out(&self) {
-        // A fresh RustyPipe client holds no cookie; it shares the (secret-free) cache.
-        match build_client(&self.cache, self.botguard) {
-            Ok(client) => *self.client.write().unwrap_or_else(PoisonError::into_inner) = client,
-            Err(e) => tracing::error!("could not rebuild the client on sign-out: {e}"),
-        }
+    async fn sign_out(&self) {
         *self.session.write().unwrap_or_else(PoisonError::into_inner) = None;
+        // Drops the cookie from RustyPipe's memory; its cache storage never held it.
+        match self.client.user_auth_remove_cookie().await {
+            Ok(()) | Err(RpError::Auth(rustypipe::error::AuthError::NoLogin)) => {}
+            Err(e) => tracing::warn!("sign-out: {}", Redactor::default().apply(&e.to_string())),
+        }
     }
 
-    fn parse_url(&self, url: &Url) -> Option<Target> {
-        urls::parse(url)
+    fn parse_url(&self, url: &str) -> Option<Target> {
+        urls::parse_text(url)
     }
 
     fn player(&self) -> &dyn Player {

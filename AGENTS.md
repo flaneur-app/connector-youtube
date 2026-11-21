@@ -19,7 +19,7 @@ src/
 ├── player.rs      Player: client fallback (default → iOS → Android VR), related, tracking fetch
 ├── browse.rs      Search, Channels, Feeds, Comments
 ├── account.rs     Library, Subscriptions, Reactions (session needed)
-├── actions.rs     InnerTube write bodies (like, subscribe, edit_playlist, create_comment)
+├── actions.rs     InnerTube write bodies (like, subscribe, edit_playlist, comments, replies)
 ├── tracking.rs    playback tracking token and ping URLs (history, resume position)
 ├── map.rs         RustyPipe model → flaneur_model (items, streams, comments, channels)
 ├── raw.rs         parsers for raw answers: home feed first page, account menu

@@ -7,15 +7,16 @@
 
 use flaneur_model::{
     AudioTrack, Channel, ChannelRef, ChannelSummary, Comment, CommentAuthor, Container,
-    ContentFlags, Item, ItemKind, ItemRef, Playable, Playlist, PlaylistRef, Precision, Published,
-    ReactionCounts, ServiceId, Stream, StreamKind, Thumbnail, Timestamp, VideoCodec,
+    ContentFlags, Dimensions, Item, ItemKind, ItemRef, Playable, Playlist, PlaylistKind,
+    PlaylistRef, Precision, Published, ReactionCounts, ServiceId, Stream, StreamKind, Thumbnail,
+    Timestamp, VideoCodec,
 };
 use rustypipe::model as rp;
 use rustypipe::model::richtext::ToPlaintext;
 use url::Url;
 
-use crate::cursor;
 use crate::text::is_relative;
+use crate::{actions, cursor};
 
 /// Id of the connector, stored in Flâneur's database.
 pub const SERVICE: &str = "youtube";
@@ -137,6 +138,7 @@ pub(crate) fn bare_item(id: &str, kind: ItemKind, title: String) -> Item {
         scheduled_start: None,
         channel: None,
         thumbnails: Vec::new(),
+        dimensions: None,
         views: None,
         reactions: ReactionCounts::default(),
         flags: ContentFlags::default(),
@@ -164,6 +166,7 @@ pub(crate) fn video_item(v: rp::VideoItem) -> Item {
 pub(crate) fn playlist_item(p: rp::PlaylistItem) -> Playlist {
     Playlist {
         r#ref: playlist_ref(&p.id),
+        kind: PlaylistKind::Regular,
         title: p.name,
         channel: p.channel.as_ref().and_then(channel_tag),
         item_count: p.video_count,
@@ -171,7 +174,8 @@ pub(crate) fn playlist_item(p: rp::PlaylistItem) -> Playlist {
     }
 }
 
-pub(crate) fn comment(c: rp::Comment) -> Comment {
+/// A comment of the item `video_id`.
+pub(crate) fn comment(c: rp::Comment, video_id: &str) -> Comment {
     let author = match &c.author {
         Some(a) => CommentAuthor {
             name: a.name.clone(),
@@ -190,6 +194,7 @@ pub(crate) fn comment(c: rp::Comment) -> Comment {
         .then(|| cursor::next(&c.replies))
         .flatten()
         .map(|cursor| cursor.0);
+    let reply_token = (!c.id.is_empty()).then(|| actions::reply_params(video_id, &c.id));
     Comment {
         published: published(c.publish_date, Some(&c.publish_date_txt)),
         id: c.id,
@@ -198,6 +203,7 @@ pub(crate) fn comment(c: rp::Comment) -> Comment {
         likes: c.like_count.map(u64::from),
         reply_count: Some(u64::from(c.reply_count)),
         replies_token,
+        reply_token,
         pinned: c.pinned,
         hearted: c.hearted,
         my_reaction: None,
@@ -288,6 +294,7 @@ fn video_stream(s: &rp::VideoStream, kind: StreamKind) -> Option<Stream> {
         video_codec: Some(video_codec(s.codec, &codecs)),
         hdr: Some(s.hdr),
         audio,
+        label: nonzero(s.quality.clone()),
     })
 }
 
@@ -329,6 +336,7 @@ fn audio_stream(s: &rp::AudioStream) -> Option<Stream> {
             sample_rate: None,
             channels: s.channels,
         }),
+        label: None,
     })
 }
 
@@ -372,16 +380,25 @@ pub(crate) fn expire_param(url: &Url) -> Option<Timestamp> {
     segments.next()?.parse().ok()
 }
 
+/// Frame size of the largest video format.
+fn dimensions(p: &rp::VideoPlayer) -> Option<Dimensions> {
+    p.video_only_streams
+        .iter()
+        .chain(&p.video_streams)
+        .filter(|s| s.width > 0 && s.height > 0)
+        .max_by_key(|s| u64::from(s.width) * u64::from(s.height))
+        .map(|s| Dimensions {
+            width: s.width,
+            height: s.height,
+        })
+}
+
 /// Portrait video no longer than a Short can be: the player answer has no "Short" flag.
 fn looks_like_short(p: &rp::VideoPlayer) -> bool {
     let duration = p.details.duration;
     duration > 0
         && duration <= SHORT_MAX_SECONDS
-        && p.video_only_streams
-            .iter()
-            .chain(&p.video_streams)
-            .max_by_key(|s| s.height)
-            .is_some_and(|s| s.height > s.width)
+        && dimensions(p).is_some_and(Dimensions::is_portrait)
 }
 
 /// The watch page: details from `/next` when they came, streams from `/player`.
@@ -415,6 +432,7 @@ pub(crate) fn playable(
         .and_then(nonzero);
     item.duration = nonzero(d.duration);
     item.thumbnails = thumbnails(&d.thumbnail);
+    item.dimensions = dimensions(player);
     item.views = details.map(|v| v.view_count).or(d.view_count);
     if let Some(v) = details {
         item.published = published(v.publish_date, v.publish_date_txt.as_deref());
@@ -458,6 +476,8 @@ pub(crate) fn playable(
         expires_at,
         start_at: None,
         tracking,
+        headers: Vec::new(),
+        handoff: None,
     }
 }
 
@@ -507,6 +527,11 @@ mod tests {
         assert!(p.hls_manifest.is_some());
         assert_eq!(p.item.kind, ItemKind::Video);
         assert_eq!(p.item.duration, Some(213));
+        let dims = p.item.dimensions.unwrap();
+        assert!(!dims.is_portrait());
+        assert_eq!(p.headers.len(), 0);
+        assert_eq!(p.handoff, None);
+        assert_eq!(p.streams[0].label.as_deref(), Some("2160p"));
         assert!(p.item.reactions.likes.is_some());
         let channel = p.item.channel.unwrap();
         assert_eq!(channel.r#ref.id, "UCuAXFkgsw1L7xaCfnd5JJOw");
@@ -625,7 +650,8 @@ mod tests {
     fn comments_with_replies_have_a_replies_token() {
         let page: rp::paginator::Paginator<rp::Comment> = fixture("comments.json");
         for c in page.items {
-            let c = comment(c);
+            let c = comment(c, "dQw4w9WgXcQ");
+            assert!(c.reply_token.is_some());
             assert!(c.reply_count.unwrap() > 0);
             assert!(c.replies_token.is_some());
             assert_eq!(c.published.unwrap().precision, Precision::Relative);

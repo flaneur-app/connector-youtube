@@ -21,16 +21,17 @@ implemented; `capabilities()` says which operation needs a session.
 | Public playlists | anonymous | verified live |
 | Shared links (`watch`, `youtu.be`, `shorts`, `live`, `embed`, `@handle`, `channel`, `c`, `user`, `playlist`) | offline | unit-tested |
 | History, playlists + Watch later + Liked, subscriptions, subscription feed, home | signed in | implemented, **not verified** (no account) |
-| Like / dislike, subscribe, Watch later and playlist edits, top-level comments | signed in | implemented, **untested** |
+| Like / dislike, subscribe, Watch later and playlist edits, comments and replies | signed in | implemented, **untested** |
 | Playback reporting (watch history, resume position) | signed in | implemented, **untested** |
 | Trending | — | unsupported: YouTube removed the page in 2025 |
 | Shorts feed | — | unsupported for now (channel Shorts tabs work) |
-| Replying to a comment | — | unsupported: needs `createReplyParams`, which RustyPipe does not keep |
 
 "Verified live" means checked against youtube.com, anonymously, by `cargo nextest run
 --run-ignored only` and `cargo run --example youtube`. The writes are the requests YouTube's web
 client sends (see `src/actions.rs`), sent with RustyPipe's cookie authentication; their bodies are
-unit-tested, their effect on an account is not.
+unit-tested, their effect on an account is not. Replies use a `reply_token` built like YouTube.js
+builds `createReplyParams` (anonymous answers do not carry it). Watch later and Liked videos come
+first in the account's playlists, marked by `PlaylistKind`.
 
 Absent stays absent: what YouTube does not give (views, dates or durations missing from some
 lists) is `None`, never `0`. Dates YouTube only gives as "3 days ago" carry

@@ -141,12 +141,11 @@ impl YouTube {
     }
 }
 
-fn video_tab(tab: ChannelTab) -> Option<ChannelVideoTab> {
+fn video_tab(tab: ChannelTab) -> ChannelVideoTab {
     match tab {
-        ChannelTab::Videos => Some(ChannelVideoTab::Videos),
-        ChannelTab::Shorts => Some(ChannelVideoTab::Shorts),
-        ChannelTab::Lives => Some(ChannelVideoTab::Live),
-        ChannelTab::Playlists => None,
+        ChannelTab::Videos => ChannelVideoTab::Videos,
+        ChannelTab::Shorts => ChannelVideoTab::Shorts,
+        ChannelTab::Lives => ChannelVideoTab::Live,
     }
 }
 
@@ -162,15 +161,13 @@ impl Channels for YouTube {
         Ok(map::channel_header(&page))
     }
 
-    /// [`ChannelTab::Playlists`] is listed by [`Channels::playlists`]: here it is
-    /// [`Error::Unsupported`].
     async fn items(
         &self,
         channel: &ChannelRef,
         tab: ChannelTab,
         cursor: Option<&Cursor>,
     ) -> Result<Page<Item>> {
-        let tab = video_tab(tab).ok_or(Error::Unsupported)?;
+        let tab = video_tab(tab);
         if let Some(c) = cursor {
             return self
                 .next_page::<VideoItem, _>(c, |v| Some(map::video_item(v)))
@@ -258,14 +255,14 @@ impl Feeds for YouTube {
 }
 
 impl YouTube {
-    async fn comment_page(&self, cursor: &Cursor) -> Result<Page<Comment>> {
+    async fn comment_page(&self, cursor: &Cursor, video_id: &str) -> Result<Page<Comment>> {
         let paginator: Paginator<rustypipe::model::Comment> = cursor::paginator(cursor)?;
         match paginator
             .next(self.query())
             .await
             .map_err(|e| self.err(e))?
         {
-            Some(p) => Ok(cursor::page(p, false, |c| Some(map::comment(c)))),
+            Some(p) => Ok(cursor::page(p, false, |c| Some(map::comment(c, video_id)))),
             None => Ok(Page::last(Vec::new())),
         }
     }
@@ -279,10 +276,10 @@ impl Comments for YouTube {
         sort: CommentSort,
         cursor: Option<&Cursor>,
     ) -> Result<Page<Comment>> {
-        if let Some(c) = cursor {
-            return self.comment_page(c).await;
-        }
         let id = video_id(item)?;
+        if let Some(c) = cursor {
+            return self.comment_page(c, id).await;
+        }
         let q = self.query();
         let details = q.video_details(id).await.map_err(|e| self.err(e))?;
         let start = match sort {
@@ -292,7 +289,7 @@ impl Comments for YouTube {
         let total = start.count;
         match start.next(&q).await.map_err(|e| self.err(e))? {
             Some(p) => {
-                let mut page = cursor::page(p, false, |c| Some(map::comment(c)));
+                let mut page = cursor::page(p, false, |c| Some(map::comment(c, id)));
                 page.total = total;
                 Ok(page)
             }
@@ -311,21 +308,26 @@ impl Comments for YouTube {
         replies_token: &str,
         cursor: Option<&Cursor>,
     ) -> Result<Page<Comment>> {
-        video_id(item)?;
+        let id = video_id(item)?;
         let start = Cursor(replies_token.to_owned());
-        self.comment_page(cursor.unwrap_or(&start)).await
+        self.comment_page(cursor.unwrap_or(&start), id).await
     }
 
-    /// Top-level comments only: a reply needs the `createReplyParams` of the parent comment,
-    /// which RustyPipe does not keep, so `reply_to` gives [`Error::Unsupported`].
+    /// A top-level comment, or, with the `reply_token` of a comment, a reply in its thread.
     async fn post(&self, item: &ItemRef, text: &str, reply_to: Option<&str>) -> Result<Comment> {
         let id = video_id(item)?;
-        if reply_to.is_some() {
-            return Err(Error::Unsupported);
-        }
-        let response = self.send(&actions::create_comment(id, text)).await?;
+        let action = match reply_to {
+            Some(token) => actions::create_reply(token, text),
+            None => actions::create_comment(id, text),
+        };
+        let response = self.send(&action).await?;
+        let comment_id = actions::created_comment_id(&response).unwrap_or_default();
+        let reply_token = match reply_to {
+            Some(token) => Some(token.to_owned()),
+            None => (!comment_id.is_empty()).then(|| actions::reply_params(id, &comment_id)),
+        };
         Ok(Comment {
-            id: actions::created_comment_id(&response).unwrap_or_default(),
+            id: comment_id,
             author: CommentAuthor {
                 name: String::new(),
                 channel: None,
@@ -340,6 +342,7 @@ impl Comments for YouTube {
             likes: Some(0),
             reply_count: Some(0),
             replies_token: None,
+            reply_token,
             pinned: false,
             hearted: false,
             my_reaction: None,

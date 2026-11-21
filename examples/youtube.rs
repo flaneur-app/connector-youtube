@@ -158,13 +158,10 @@ async fn main() -> Res {
         }
     }
 
-    let item =
-        match yt.parse_url(&Url::parse(&video).unwrap_or_else(|_| {
-            Url::parse(&format!("https://youtu.be/{video}")).expect("valid URL")
-        })) {
-            Some(Target::Item(r)) => r,
-            _ => ItemRef::new(ServiceId::new("youtube"), video),
-        };
+    let item = match yt.parse_url(&video) {
+        Some(Target::Item(r)) => r,
+        _ => ItemRef::new(ServiceId::new("youtube"), video),
+    };
     println!("\n== resolve {}", item.id);
     let playable = yt.player().resolve(&item).await?;
     let i = &playable.item;
@@ -262,8 +259,7 @@ async fn main() -> Res {
     }
 
     println!("\n== channel @LinusTechTips (from a URL)");
-    let Some(Target::Channel(channel)) =
-        yt.parse_url(&Url::parse("https://www.youtube.com/@LinusTechTips")?)
+    let Some(Target::Channel(channel)) = yt.parse_url("https://www.youtube.com/@LinusTechTips")
     else {
         return Err("not a channel".into());
     };

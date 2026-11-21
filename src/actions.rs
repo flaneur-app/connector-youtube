@@ -72,15 +72,46 @@ pub(crate) fn create_comment(video_id: &str, text: &str) -> Action {
     }
 }
 
+/// Post a reply in the thread of a comment; `reply_params` is the comment's
+/// [`reply_params`] (its `reply_token`).
+pub(crate) fn create_reply(reply_params: &str, text: &str) -> Action {
+    Action {
+        endpoint: "comment/create_comment_reply",
+        body: json!({ "createReplyParams": reply_params, "commentText": text }),
+    }
+}
+
 /// `createCommentParams`: the protobuf message `{2: video_id, 5: {1: 0}, 10: 7}`, in standard
 /// base64, then percent-encoded, exactly as YouTube.js sends it.
 pub(crate) fn create_comment_params(video_id: &str) -> String {
-    let id = video_id.as_bytes();
-    let mut pb = Vec::with_capacity(id.len() + 8);
-    pb.push(0x12); // field 2, length-delimited
-    // Video ids are 11 bytes: one length byte is always enough.
-    pb.push(u8::try_from(id.len()).unwrap_or(u8::MAX));
-    pb.extend_from_slice(id);
+    comment_params(video_id, None)
+}
+
+/// `createReplyParams` of a comment: `{2: video_id, 4: comment_id, 5: {1: 0}, 10: 7}`
+/// (YouTube.js `encodeCommentReplyParams`). Replies go to the thread, so the id of a reply
+/// (`<thread>.<reply>`) is cut to its thread.
+pub(crate) fn reply_params(video_id: &str, comment_id: &str) -> String {
+    let thread = comment_id.split('.').next().unwrap_or(comment_id);
+    comment_params(video_id, Some(thread))
+}
+
+fn comment_params(video_id: &str, comment_id: Option<&str>) -> String {
+    fn field(pb: &mut Vec<u8>, tag: u8, value: &[u8]) {
+        pb.push(tag);
+        let mut len = value.len();
+        // Varint length; ids are short, but nothing assumes it.
+        while len >= 0x80 {
+            pb.push(u8::try_from(len & 0x7f).unwrap_or(0) | 0x80);
+            len >>= 7;
+        }
+        pb.push(u8::try_from(len).unwrap_or(0));
+        pb.extend_from_slice(value);
+    }
+    let mut pb = Vec::with_capacity(64);
+    field(&mut pb, 0x12, video_id.as_bytes()); // field 2, length-delimited
+    if let Some(id) = comment_id {
+        field(&mut pb, 0x22, id.as_bytes()); // field 4, length-delimited
+    }
     pb.extend_from_slice(&[0x2a, 0x02, 0x08, 0x00]); // field 5: { field 1: 0 }
     pb.extend_from_slice(&[0x50, 0x07]); // field 10: 7
     data_encoding::BASE64
@@ -187,6 +218,27 @@ mod tests {
         assert_eq!(
             c.body["createCommentParams"],
             "EgtkUXc0dzlXZ1hjUSoCCABQBw%3D%3D"
+        );
+    }
+
+    #[test]
+    fn reply_params_are_youtube_js_protobuf() {
+        // 12 0b "dQw4w9WgXcQ" 22 1a "UgzR5nhfsZmV7SaC5AJ4AaABAg" 2a 02 08 00 50 07
+        let params = reply_params("dQw4w9WgXcQ", "UgzR5nhfsZmV7SaC5AJ4AaABAg");
+        assert_eq!(
+            params,
+            "EgtkUXc0dzlXZ1hjUSIaVWd6UjVuaGZzWm1WN1NhQzVBSjRBYUFCQWcqAggAUAc%3D"
+        );
+        assert_eq!(
+            reply_params("dQw4w9WgXcQ", "UgzR5nhfsZmV7SaC5AJ4AaABAg.9xYzAbCdEfG"),
+            params,
+            "a reply's id is cut to its thread"
+        );
+        let reply = create_reply(&params, "Agreed");
+        assert_eq!(reply.endpoint, "comment/create_comment_reply");
+        assert_eq!(
+            reply.body,
+            json!({ "createReplyParams": params, "commentText": "Agreed" })
         );
     }
 

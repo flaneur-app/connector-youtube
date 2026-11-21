@@ -14,7 +14,6 @@ use flaneur_connector::{
 use flaneur_connector_youtube::{Config, YouTube};
 use flaneur_model::{ItemKind, ItemRef, PlaylistRef, Reaction, ServiceId, StreamKind};
 use flaneur_vm::{Selection, SelectionPrefs, select_streams};
-use url::Url;
 
 fn yt() -> YouTube {
     YouTube::new(Config::default()).unwrap()
@@ -48,6 +47,15 @@ async fn anonymous_connector_refuses_account_operations() {
         yt.comments().unwrap().post(&rick, "hi", None).await,
         Err(Error::SignInRequired)
     ));
+    assert!(matches!(
+        yt.comments()
+            .unwrap()
+            .post(&rick, "hi", Some("EgtkUXc0"))
+            .await,
+        Err(Error::SignInRequired)
+    ));
+    yt.sign_out().await;
+    assert!(!yt.capabilities().signed_in);
 }
 
 #[tokio::test]
@@ -124,6 +132,7 @@ async fn comments_and_replies() {
         .unwrap();
     assert_ne!(top.items.len(), 0);
     assert!(top.total.is_some());
+    assert!(top.items.iter().all(|c| c.reply_token.is_some()));
     let token = top
         .items
         .iter()
@@ -165,8 +174,7 @@ async fn related_items() {
 #[ignore = "live YouTube"]
 async fn channel_from_a_handle_url() {
     let yt = yt();
-    let Some(Target::Channel(channel)) =
-        yt.parse_url(&Url::parse("https://www.youtube.com/@LinusTechTips").unwrap())
+    let Some(Target::Channel(channel)) = yt.parse_url("https://www.youtube.com/@LinusTechTips")
     else {
         panic!("a channel");
     };
