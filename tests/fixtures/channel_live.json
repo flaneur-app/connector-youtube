@@ -1,0 +1,152 @@
+{
+ "id": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+ "name": "Linus Tech Tips",
+ "handle": "@LinusTechTips",
+ "subscriber_count": 16900000,
+ "video_count": 8000,
+ "avatar": [
+  {
+   "url": "https://yt3.googleusercontent.com/gnvYLhXy8FAlPXZ2RTrkrgj-5kyt0vdE2FUGVOiKGdEZIa-wN5A-7nwZBlWJLzUMmoh1NWAU=s72-c-k-c0x00ffffff-no-rj",
+   "width": 72,
+   "height": 72
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/gnvYLhXy8FAlPXZ2RTrkrgj-5kyt0vdE2FUGVOiKGdEZIa-wN5A-7nwZBlWJLzUMmoh1NWAU=s120-c-k-c0x00ffffff-no-rj",
+   "width": 120,
+   "height": 120
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/gnvYLhXy8FAlPXZ2RTrkrgj-5kyt0vdE2FUGVOiKGdEZIa-wN5A-7nwZBlWJLzUMmoh1NWAU=s160-c-k-c0x00ffffff-no-rj",
+   "width": 160,
+   "height": 160
+  }
+ ],
+ "verification": "verified",
+ "description": "Linus Tech Tips is a passionate team of \"professionally curious\" experts in consumer technology and video production who",
+ "tags": [
+  "Unboxing",
+  "Review",
+  "Computer"
+ ],
+ "banner": [
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w1060-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 1060,
+   "height": 175
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w1138-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 1138,
+   "height": 188
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 1707,
+   "height": 283
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w2120-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 2120,
+   "height": 351
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w2276-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 2276,
+   "height": 377
+  },
+  {
+   "url": "https://yt3.googleusercontent.com/U_7GWetO6k4sq3pAkbFEIIWzZLKcIJlGJqNz6NQAhgqF6DVD5pllwWF6trSUWEIRn4MkhNlhy9Y=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+   "width": 2560,
+   "height": 424
+  }
+ ],
+ "has_shorts": true,
+ "has_live": true,
+ "visitor_data": null,
+ "content": {
+  "count": null,
+  "items": [
+   {
+    "id": "Z1sqWFs86uU",
+    "name": "Building the Rarest PC",
+    "duration": 13091,
+    "thumbnail": [
+     {
+      "url": "https://i.ytimg.com/vi/Z1sqWFs86uU/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBLsfQp2jGjhGni_KDbHLSoCE5vCQ",
+      "width": 360,
+      "height": 202
+     },
+     {
+      "url": "https://i.ytimg.com/vi/Z1sqWFs86uU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCgaMBoZiNxupMBAHn3tecnOERLkw",
+      "width": 720,
+      "height": 404
+     }
+    ],
+    "channel": null,
+    "channels_feat": [],
+    "publish_date": "2026-09-21T00:56:44Z",
+    "publish_date_txt": "Streamed 2 months ago",
+    "view_count": 1400000,
+    "is_live": false,
+    "is_short": false,
+    "is_upcoming": false,
+    "short_description": null
+   },
+   {
+    "id": "o4ub_WOWFoo",
+    "name": "I Love The Steam Machine More Already - WAN Show June 26, 2026",
+    "duration": 14025,
+    "thumbnail": [
+     {
+      "url": "https://i.ytimg.com/vi/o4ub_WOWFoo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLANtgXjt1hERpvKljlBKZFZKVUhyg",
+      "width": 360,
+      "height": 202
+     },
+     {
+      "url": "https://i.ytimg.com/vi/o4ub_WOWFoo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCN7VE949dhPfZMxJc946DBwMIuBw",
+      "width": 720,
+      "height": 404
+     }
+    ],
+    "channel": null,
+    "channels_feat": [],
+    "publish_date": "2026-07-21T00:56:44Z",
+    "publish_date_txt": "Streamed 4 months ago",
+    "view_count": 723000,
+    "is_live": false,
+    "is_short": false,
+    "is_upcoming": false,
+    "short_description": null
+   },
+   {
+    "id": "BCyBANIkjlo",
+    "name": "The Xbox News Looks Really Bad - WAN Show June 19, 2026",
+    "duration": 13276,
+    "thumbnail": [
+     {
+      "url": "https://i.ytimg.com/vi/BCyBANIkjlo/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCALq5PTh0N5hyGMg_GHo5BBySHew",
+      "width": 360,
+      "height": 202
+     },
+     {
+      "url": "https://i.ytimg.com/vi/BCyBANIkjlo/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBl3xIjFATC4wL05zJHEl-wEla63w",
+      "width": 720,
+      "height": 404
+     }
+    ],
+    "channel": null,
+    "channels_feat": [],
+    "publish_date": "2026-06-21T00:56:44Z",
+    "publish_date_txt": "Streamed 5 months ago",
+    "view_count": 221000,
+    "is_live": false,
+    "is_short": false,
+    "is_upcoming": false,
+    "short_description": null
+   }
+  ],
+  "ctoken": "4qmFsgL9DBIYVUNYdXFTQmxIQUU2WHcteWVKQTBUdW53GuAMOGdiRUNSckJDWEstQ1RxN0NRb2tObU0zTkRNNVpEWXRNREF3TUMweVpHRXlMV0UwWlRBdE56UTNORFEyTTJZeE9UVmtFcEFKUVdOV09GWmtWVFZvUlc1NFdIbFhSbTFJUXpoU1JFcFFSWEpqUW5ONk9XVnhMVGRvWlZWYVRUQlFRbEU0YlRscmJESk5RalpVYjFselpGRjRlVWREYkRSeFREQkJjbVZtUjFSeFIyaG1NM2R1YTJRd2NEZzBTblpDYjNZNU5sUXRWemwyTFRNeFZtRXdXbWxWZEZOWlRHVnpaRTFDVTNWQ1NsaHBRbUpJZWpsYWNrNHlibEpPUTNoSWFGY3pObEZQUzJadFgxcEdkamczYWpWU0xYazVRazF1UzBocmNVNU1ZbmxWTWtaZlZuQTFYM0ZxYTNwRmNXTk5UMDFvU0RsTmEzbFBaVmwxWldNMmJqTktTR0psVFZSSGEyUTNlR2sxY25oVlVtTkRZbTUwZURSSGNIWTNjbEY0WmtwWGNFbFpaa1JoWldsQ1ZDMDJSSFl5Y0ZOQ1NtcEdWRGRmVVhjMVdVVkxaMnRVWVRZeU4zUmhRMUZOWVdNMGVFWkdjMnQwYkRWTmRVeExYMlZPZEhSNWQwRldjMnc1TFRGUlZFWXlZbFozY2xKMlIxTkthVFZHWDBSaE1XRlhXRWxsU1Uxb1NXNU9VamQ1ZFhGQ1dGVjVVM0JXV1ZkYVJHaGFNMVp6VUhGQk5VdGZhelZ3WW5KV1VWcDVlVzkxY2xKYVVGWmZNRlpSUWtKRVIxSkhZMDh0TlVRM1ptOUtNMEU0TUVKNmQyNXhSRXh2VW5wV2ExWklSa3BGYTBOcGEyOU5PVzVpYUhvemRURkVNakpVYzFORFZqQndkMk42Y1hWelRUSjJTamRVUzBrelN6bFZjREJxU1hRMmNUVkplVUpoYVc1NWRsWndkekF3U0djd1YweFpkRU5MZGtKUU5rMW1NMlJZY0ZKM2VtZHFXamhSTjIxRWRtTlBTV05qTUVkRFZsbDNMVVpaUkVkdlVGQkljbk52TVVaV1RYVTROMGhaYlhsVWNURnphWEpOY21FMlFUWkZkRE0wZG5GWVF6ZEpjVXB1UmxSdVZXOUtSREY2U0VVMU1VNDFOMlZGVkd4S1RETnZjbmRUVVV0MVVrd3pkbXBIVEhKdU1WOHRaV3d6U2pWR1lYcDBUakkwY1dwUVRFVmhVbk53Y20xeWQzWnBkVGg0VUVOc1VrNWxWMU4zWVVocGRVMTNSSFp5YnpWVk56aEdObXRNVkRCWk5UVXlZMEZVUjNKTGJITjRXVzFhZEZsT2RtOVNZbmM0Y2xaa1JtOW1ZWFZNY1ZCNU5YbExNRjlGVFZaak5WazVWRzh3UzJSd1RXdFlUMlZLVGt4WFduUlRVbVJzWHpKQmNGcERkamhpYnpsVFEwc3hOR2MzWVVsdlQwOHRhbFZOYVdKSGNFWjFhVXg2WTNrMVZrNXJiMnBaVmsxSVduRXRka1ZMVEZsdFNIRTVSRmRDYkZodmNWaENXa3BCVFVvMVUwVmFiazVCYWt4cGFtRmhaVGsxTjA1TlEySktOVkpMY0hsaVkwSlZWSGx2Um1weldFZGpObmQxYzNGMlZEQXhjVEJCUjFCdGVVZFdiVEF0YUdFeVVXUlRXRVJ6ZUcxbllsZHFRekpxVFhsdVJHdFlOMnBxV25WUlExbFhhM3BSVW1SRFJHMW1ORnB1YmsxaVNtcEhaRlk0YUdKVVNsVjFOVEE1YjIxTWVuaEhURGRzYXpKV2QwcEplamxMT0MxcFN6Tm9ibDlKVTJGU1kyWklVMjFHYkRaRWJXZFRkV1ZEUVZGNmRGUkdhME5WTXpRdFgxbFNVbXhoV1VGTFUzTkRjUzFIVmpsbFMwaENXRXhUYkVoalJqYzViVXRJWDFKUVptdHRORWhJVHkxTlpDMDVObG81V2tSNmExbE5iVWhCZVdkU1dXcFNlbWxhTjNwR1NEVmtjRVJXTkVOVFZHTlRhekZFY1VObmJtNUplVk5JYTBkZk1HTnJabmhhY1ZvMFltMWtkM2xRUlcwelNXNVpjRUl0VTNwUmVUZENORXRRYURaSWNFUm9VSGhOWjNaVVoyRjBkV1JhV2twdFZtMUNjazFWYW1sdlMyZGFPQmdN",
+  "visitor_data": null,
+  "endpoint": "browse"
+ }
+}

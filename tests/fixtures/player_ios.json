@@ -1,0 +1,248 @@
+{
+ "details": {
+  "id": "dQw4w9WgXcQ",
+  "name": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+  "description": "The official video for “Never Gonna Give You Up” by Rick Astley. \n\nNever: The Autobiography 📚 OUT NOW! \nFollow this link to get your copy and listen to Rick’s ‘Never’ playlist ❤️ #RickAstleyNever\nhttp",
+  "duration": 213,
+  "thumbnail": [
+   {
+    "url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+    "width": 480,
+    "height": 360
+   },
+   {
+    "url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/sddefault.jpg",
+    "width": 640,
+    "height": 480
+   }
+  ],
+  "channel_id": "UCuAXFkgsw1L7xaCfnd5JJOw",
+  "channel_name": "Rick Astley",
+  "view_count": 1839303057,
+  "keywords": [
+   "rick astley",
+   "Never Gonna Give You Up",
+   "nggyu"
+  ],
+  "is_live": false,
+  "is_live_content": false
+ },
+ "video_streams": [],
+ "video_only_streams": [
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=401&source=youtube",
+   "itag": 401,
+   "bitrate": 17400774,
+   "average_bitrate": 9024958,
+   "size": 240334643,
+   "last_modified": 1766961226342025,
+   "index_range": {
+    "start": 701,
+    "end": 1188
+   },
+   "init_range": {
+    "start": 0,
+    "end": 700
+   },
+   "duration_ms": 213040,
+   "width": 3840,
+   "height": 2160,
+   "fps": 25,
+   "quality": "2160p",
+   "hdr": false,
+   "mime": "video/mp4; codecs=\"av01.0.12M.08\"",
+   "format": "mp4",
+   "codec": "av01",
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  },
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=248&source=youtube",
+   "itag": 248,
+   "bitrate": 1549172,
+   "average_bitrate": 1158339,
+   "size": 30846580,
+   "last_modified": 1766963494258902,
+   "index_range": {
+    "start": 220,
+    "end": 874
+   },
+   "init_range": {
+    "start": 0,
+    "end": 219
+   },
+   "duration_ms": 213040,
+   "width": 1920,
+   "height": 1080,
+   "fps": 25,
+   "quality": "1080p",
+   "hdr": false,
+   "mime": "video/webm; codecs=\"vp09.00.40.08\"",
+   "format": "webm",
+   "codec": "vp9",
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  },
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=137&source=youtube",
+   "itag": 137,
+   "bitrate": 4334157,
+   "average_bitrate": 3038377,
+   "size": 80911999,
+   "last_modified": 1766957926174250,
+   "index_range": {
+    "start": 742,
+    "end": 1229
+   },
+   "init_range": {
+    "start": 0,
+    "end": 741
+   },
+   "duration_ms": 213040,
+   "width": 1920,
+   "height": 1080,
+   "fps": 25,
+   "quality": "1080p",
+   "hdr": false,
+   "mime": "video/mp4; codecs=\"avc1.640028\"",
+   "format": "mp4",
+   "codec": "avc1",
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  },
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=134&source=youtube",
+   "itag": 134,
+   "bitrate": 450863,
+   "average_bitrate": 315092,
+   "size": 8390921,
+   "last_modified": 1766960771651324,
+   "index_range": {
+    "start": 741,
+    "end": 1228
+   },
+   "init_range": {
+    "start": 0,
+    "end": 740
+   },
+   "duration_ms": 213040,
+   "width": 640,
+   "height": 360,
+   "fps": 25,
+   "quality": "360p",
+   "hdr": false,
+   "mime": "video/mp4; codecs=\"avc1.4D401E\"",
+   "format": "mp4",
+   "codec": "avc1",
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  },
+  {
+   "url": null,
+   "itag": 999,
+   "bitrate": 1549172,
+   "average_bitrate": 1158339,
+   "size": 30846580,
+   "last_modified": 1766963494258902,
+   "index_range": {
+    "start": 220,
+    "end": 874
+   },
+   "init_range": {
+    "start": 0,
+    "end": 219
+   },
+   "duration_ms": 213040,
+   "width": 1920,
+   "height": 1080,
+   "fps": 25,
+   "quality": "1080p",
+   "hdr": false,
+   "mime": "video/webm; codecs=\"vp09.00.40.08\"",
+   "format": "webm",
+   "codec": "vp9",
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  }
+ ],
+ "audio_streams": [
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=251&source=youtube",
+   "itag": 251,
+   "bitrate": 136544,
+   "average_bitrate": 128930,
+   "size": 3433755,
+   "last_modified": 1766955883819090,
+   "index_range": {
+    "start": 259,
+    "end": 629
+   },
+   "init_range": {
+    "start": 0,
+    "end": 258
+   },
+   "duration_ms": 213061,
+   "mime": "audio/webm; codecs=\"opus\"",
+   "format": "webm",
+   "codec": "opus",
+   "channels": 2,
+   "loudness_db": 0.97999954,
+   "is_drc": false,
+   "track": null,
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  },
+  {
+   "url": "https://rr1---sn-example.googlevideo.com/videoplayback?expire=1795244199&itag=140&source=youtube",
+   "itag": 140,
+   "bitrate": 130677,
+   "average_bitrate": 129502,
+   "size": 3449447,
+   "last_modified": 1766955925572207,
+   "index_range": {
+    "start": 723,
+    "end": 1018
+   },
+   "init_range": {
+    "start": 0,
+    "end": 722
+   },
+   "duration_ms": 213089,
+   "mime": "audio/mp4; codecs=\"mp4a.40.2\"",
+   "format": "m4a",
+   "codec": "mp4a",
+   "channels": 2,
+   "loudness_db": 0.9899998,
+   "is_drc": false,
+   "track": null,
+   "xtags": null,
+   "drm_track_type": null,
+   "drm_systems": []
+  }
+ ],
+ "subtitles": [
+  {
+   "url": "https://www.youtube.com/api/timedtext?v=dQw4w9WgXcQ&lang=en",
+   "lang": "en",
+   "lang_name": "English",
+   "auto_generated": false
+  }
+ ],
+ "expires_in_seconds": 21540,
+ "valid_until": "2026-11-21T06:55:40.133231681Z",
+ "hls_manifest_url": "https://manifest.googlevideo.com/api/manifest/hls_variant/expire/1795243457/id/example/file/index.m3u8",
+ "dash_manifest_url": null,
+ "abr_streaming_url": null,
+ "abr_ustreamer_config": null,
+ "po_token": null,
+ "preview_frames": [],
+ "drm": null,
+ "client_type": "ios",
+ "visitor_data": null
+}

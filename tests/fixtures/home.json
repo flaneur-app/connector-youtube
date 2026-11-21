@@ -1,0 +1,270 @@
+{
+ "_comment": "Trimmed from live anonymous responses of 2026-11-21 (a channel Videos tab, a search, a channel Shorts tab), arranged as the richGrid of /browse FEwhat_to_watch. The channel row and avatar of the lockup are written in the layout home lockups use.",
+ "contents": {
+  "twoColumnBrowseResultsRenderer": {
+   "tabs": [
+    {
+     "tabRenderer": {
+      "content": {
+       "richGridRenderer": {
+        "contents": [
+         {
+          "richItemRenderer": {
+           "content": {
+            "lockupViewModel": {
+             "contentId": "f0KK_4AaqLQ",
+             "contentType": "LOCKUP_CONTENT_TYPE_VIDEO",
+             "contentImage": {
+              "thumbnailViewModel": {
+               "image": {
+                "sources": [
+                 {
+                  "url": "https://i.ytimg.com/vi/f0KK_4AaqLQ/hq720_custom_1.jpg?sqp=COTXg9gG-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC9FaHLqyWR8wKxg2vVl2o3klkfRg",
+                  "width": 360,
+                  "height": 202
+                 },
+                 {
+                  "url": "https://i.ytimg.com/vi/f0KK_4AaqLQ/hq720_custom_1.jpg?sqp=COTXg9gG-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAy4_f41xVaTPVQ712ppybYcrB5ng",
+                  "width": 720,
+                  "height": 404
+                 }
+                ]
+               },
+               "overlays": [
+                {
+                 "thumbnailBottomOverlayViewModel": {
+                  "badges": [
+                   {
+                    "thumbnailBadgeViewModel": {
+                     "text": "16:48",
+                     "badgeStyle": "THUMBNAIL_OVERLAY_BADGE_STYLE_DEFAULT",
+                     "rendererContext": {
+                      "accessibilityContext": {
+                       "label": "16 minutes, 48 seconds"
+                      }
+                     }
+                    }
+                   }
+                  ]
+                 }
+                }
+               ]
+              }
+             },
+             "metadata": {
+              "lockupMetadataViewModel": {
+               "title": {
+                "content": "I Played GTA VI at 120FPS"
+               },
+               "image": {
+                "decoratedAvatarViewModel": {
+                 "avatar": {
+                  "avatarViewModel": {
+                   "image": {
+                    "sources": [
+                     {
+                      "url": "https://yt3.ggpht.com/example-avatar=s68-c-k-c0x00ffffff-no-rj",
+                      "width": 68,
+                      "height": 68
+                     }
+                    ]
+                   }
+                  }
+                 },
+                 "rendererContext": {
+                  "commandContext": {
+                   "onTap": {
+                    "innertubeCommand": {
+                     "browseEndpoint": {
+                      "browseId": "UCXuqSBlHAE6Xw-yeJA0Tunw",
+                      "canonicalBaseUrl": "/@LinusTechTips"
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               },
+               "metadata": {
+                "contentMetadataViewModel": {
+                 "metadataRows": [
+                  {
+                   "metadataParts": [
+                    {
+                     "text": {
+                      "content": "Linus Tech Tips"
+                     }
+                    }
+                   ]
+                  },
+                  {
+                   "metadataParts": [
+                    {
+                     "text": {
+                      "content": "1.2M views"
+                     }
+                    },
+                    {
+                     "text": {
+                      "content": "9 hours ago"
+                     },
+                     "accessibilityLabel": "9 hours ago"
+                    }
+                   ]
+                  }
+                 ],
+                 "delimiter": " • "
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         },
+         {
+          "richItemRenderer": {
+           "content": {
+            "videoRenderer": {
+             "videoId": "5C_HPTJg5ek",
+             "thumbnail": {
+              "thumbnails": [
+               {
+                "url": "https://i.ytimg.com/vi/5C_HPTJg5ek/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDGE2GXUKjYf6-HRHfYYc40FmpZMw",
+                "width": 360,
+                "height": 202
+               },
+               {
+                "url": "https://i.ytimg.com/vi/5C_HPTJg5ek/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBcfa4UXiKt9mva1T5fl_YNQJDoQw",
+                "width": 720,
+                "height": 404
+               }
+              ]
+             },
+             "title": {
+              "runs": [
+               {
+                "text": "Rust in 100 Seconds"
+               }
+              ]
+             },
+             "publishedTimeText": {
+              "simpleText": "5 years ago"
+             },
+             "lengthText": {
+              "accessibility": {
+               "accessibilityData": {
+                "label": "2 minutes, 29 seconds"
+               }
+              },
+              "simpleText": "2:29"
+             },
+             "viewCountText": {
+              "simpleText": "2,688,709 views"
+             },
+             "ownerText": {
+              "runs": [
+               {
+                "text": "Fireship",
+                "navigationEndpoint": {
+                 "browseEndpoint": {
+                  "browseId": "UCsBjURrPoezykLs9EqgamOA",
+                  "canonicalBaseUrl": "/@Fireship"
+                 }
+                }
+               }
+              ]
+             },
+             "badges": [
+              {
+               "metadataBadgeRenderer": {
+                "style": "BADGE_STYLE_TYPE_SIMPLE",
+                "label": "4K"
+               }
+              }
+             ]
+            }
+           }
+          }
+         },
+         {
+          "richSectionRenderer": {
+           "content": {
+            "richShelfRenderer": {
+             "contents": [
+              {
+               "richItemRenderer": {
+                "content": {
+                 "shortsLockupViewModel": {
+                  "entityId": "shorts-shelf-item-fLzFtwtMEnY",
+                  "overlayMetadata": {
+                   "primaryText": {
+                    "content": "GTA 6 on Xbox Series X Vs Xbox Series S"
+                   },
+                   "secondaryText": {
+                    "content": "27K views"
+                   }
+                  },
+                  "thumbnailViewModel": {
+                   "thumbnailViewModel": {
+                    "image": {
+                     "sources": [
+                      {
+                       "url": "https://i.ytimg.com/vi/fLzFtwtMEnY/oardefault.jpg?sqp=-oaymwEdCJUDENAFSFWQAgHyq4qpAwwIARUAAIhCcAHAAQY=&rs=AOn4CLAkX-NvXM822mxO_Ok1yGS2ui8tgg",
+                       "width": 405,
+                       "height": 720
+                      },
+                      {
+                       "url": "https://i.ytimg.com/vi/fLzFtwtMEnY/oardefault.jpg?sqp=-oaymwEgCJUDEOAESFWQAgHyq4qpAw8IARUAAIhCcAHAAQbIAQE=&rs=AOn4CLDDZAABlh8vVny5jQ0i07WeElu8Yw",
+                       "width": 405,
+                       "height": 608
+                      }
+                     ]
+                    }
+                   }
+                  },
+                  "onTap": {
+                   "innertubeCommand": {
+                    "reelWatchEndpoint": {
+                     "videoId": "fLzFtwtMEnY"
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             ]
+            }
+           }
+          }
+         },
+         {
+          "richItemRenderer": {
+           "content": {
+            "lockupViewModel": {
+             "contentId": "PLexample",
+             "contentType": "LOCKUP_CONTENT_TYPE_PLAYLIST"
+            }
+           }
+          }
+         },
+         {
+          "continuationItemRenderer": {
+           "continuationEndpoint": {
+            "continuationCommand": {
+             "token": "4qmFsgJgEhhVQ1h1cVNCbEhBRTZYdy15ZUpBMFR1bncaRDhnWXJHaW1hQVNZS0pEWmtNakZqT0dKa0xUQXdNREF0TWpjNE55MWlZbVprTFRFMFl6RTBaV1kwTVdNeVl3JTNEJTNE",
+             "request": "CONTINUATION_REQUEST_TYPE_BROWSE"
+            }
+           }
+          }
+         }
+        ]
+       }
+      }
+     }
+    }
+   ]
+  }
+ }
+}
