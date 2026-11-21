@@ -56,6 +56,20 @@ fn video(id: &str) -> Option<Target> {
     is_video_id(id).then(|| Target::Item(item_ref(id)))
 }
 
+/// What a pasted link points to; a missing scheme (`youtu.be/…`, `www.youtube.com/…`) is
+/// taken as `https`.
+pub(crate) fn parse_text(text: &str) -> Option<Target> {
+    let text = text.trim();
+    let url = match Url::parse(text) {
+        Ok(url) => url,
+        Err(url::ParseError::RelativeUrlWithoutBase) => {
+            Url::parse(&format!("https://{text}")).ok()?
+        }
+        Err(_) => return None,
+    };
+    parse(&url)
+}
+
 /// What a YouTube URL points to.
 pub(crate) fn parse(url: &Url) -> Option<Target> {
     if !matches!(url.scheme(), "http" | "https") {
@@ -182,6 +196,25 @@ mod tests {
         };
         assert_eq!(p.id, "PL2_OBreMn7FrsiSW0VDZjdq0xqUKkZYHT");
         assert_eq!(p.service.0, "youtube");
+    }
+
+    #[test]
+    fn pasted_text() {
+        let id = |t| match parse_text(t) {
+            Some(Target::Item(r)) => Some(r.id),
+            _ => None,
+        };
+        assert_eq!(
+            id("  https://youtu.be/dQw4w9WgXcQ \n"),
+            Some("dQw4w9WgXcQ".into())
+        );
+        assert_eq!(id("youtu.be/dQw4w9WgXcQ"), Some("dQw4w9WgXcQ".into()));
+        assert_eq!(
+            id("www.youtube.com/watch?v=dQw4w9WgXcQ"),
+            Some("dQw4w9WgXcQ".into())
+        );
+        assert_eq!(parse_text("not a link"), None);
+        assert_eq!(parse_text("lbry://@channel"), None);
     }
 
     #[test]

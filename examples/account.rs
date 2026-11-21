@@ -11,6 +11,7 @@
 //! cargo run --example account -- subscribe <UC… or @handle> | unsubscribe <…>
 //! cargo run --example account -- wl-add <video> | wl-remove <video>
 //! cargo run --example account -- comment <video> "text"          # PUBLIC
+//! cargo run --example account -- reply <video> "text"            # PUBLIC, to the top comment
 //! cargo run --example account -- watched <video> <seconds>       # history + resume position
 //! ```
 //!
@@ -152,6 +153,21 @@ async fn main() -> Res {
             }
             println!("{command}: done; check https://www.youtube.com/playlist?list=WL");
         }
+        "reply" => {
+            let video = yt_ref(arg(&args, 1, "video id")?);
+            let text = arg(&args, 2, "text")?;
+            let comments = yt.comments().ok_or("no comments")?;
+            let top = comments
+                .comments(&video, flaneur_connector::CommentSort::Top, None)
+                .await?;
+            let parent = top.items.first().ok_or("no comment to reply to")?;
+            let token = parent.reply_token.as_deref().ok_or("no reply token")?;
+            let reply = comments.post(&video, &text, Some(token)).await?;
+            println!(
+                "replied to {:?} ({}): reply id {:?}; delete it on the video page",
+                parent.author.name, parent.id, reply.id
+            );
+        }
         "comment" => {
             let video = yt_ref(arg(&args, 1, "video id")?);
             let text = arg(&args, 2, "text")?;
@@ -192,6 +208,6 @@ async fn main() -> Res {
         }
         other => return Err(format!("unknown command {other}").into()),
     }
-    yt.sign_out();
+    yt.sign_out().await;
     Ok(())
 }

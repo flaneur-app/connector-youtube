@@ -9,7 +9,8 @@
 use async_trait::async_trait;
 use flaneur_connector::{Error, Library, PlaybackReport, Reactions, Result, Subscriptions};
 use flaneur_model::{
-    ChannelRef, ChannelSummary, Cursor, Item, ItemRef, Page, Playlist, PlaylistRef, Reaction,
+    ChannelRef, ChannelSummary, Cursor, Item, ItemRef, Page, Playlist, PlaylistKind, PlaylistRef,
+    Reaction,
 };
 use rustypipe::client::ClientType;
 use rustypipe::model::paginator::Paginator;
@@ -24,9 +25,10 @@ const WATCH_LATER: &str = "WL";
 /// Id of the Liked videos playlist.
 const LIKED: &str = "LL";
 
-fn own_playlist(id: &str, title: &str) -> Playlist {
+fn own_playlist(id: &str, kind: PlaylistKind, title: &str) -> Playlist {
     Playlist {
         r#ref: map::playlist_ref(id),
+        kind,
         title: title.to_owned(),
         channel: None,
         item_count: None,
@@ -103,7 +105,8 @@ impl Library for YouTube {
         }
     }
 
-    /// Watch later and Liked videos first, then the playlists of the library.
+    /// Watch later and Liked videos first (told apart by [`PlaylistKind`], the titles are only for
+    /// display), then the playlists of the library.
     async fn playlists(&self, cursor: Option<&Cursor>) -> Result<Page<Playlist>> {
         let q = self.authed()?;
         if let Some(c) = cursor {
@@ -116,8 +119,8 @@ impl Library for YouTube {
         page.items.splice(
             0..0,
             [
-                own_playlist(WATCH_LATER, "Watch later"),
-                own_playlist(LIKED, "Liked videos"),
+                own_playlist(WATCH_LATER, PlaylistKind::WatchLater, "Watch later"),
+                own_playlist(LIKED, PlaylistKind::Liked, "Liked videos"),
             ],
         );
         page.total = page.total.map(|n| n + 2);
@@ -126,6 +129,10 @@ impl Library for YouTube {
 
     fn watch_later(&self) -> Option<PlaylistRef> {
         Some(map::playlist_ref(WATCH_LATER))
+    }
+
+    fn liked(&self) -> Option<PlaylistRef> {
+        Some(map::playlist_ref(LIKED))
     }
 
     async fn playlist_items(
