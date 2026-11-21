@@ -12,3 +12,6 @@
 //! `youtube.com` part of the user's `cookies.txt`: the connector hands it to the app (for the OS
 //! keyring) and otherwise keeps it in memory only. RustyPipe's cache, which would store the
 //! cookie in a JSON file, is given a storage that strips it (see [`Config::cache_file`]).
+
+mod session;
+mod storage;
