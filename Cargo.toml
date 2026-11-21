@@ -9,8 +9,8 @@ rust-version = "1.100"
 publish = false
 
 [dependencies]
-flaneur-model = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
-flaneur-connector = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
+flaneur-model = { git = "https://github.com/flaneur-app/core" }
+flaneur-connector = { git = "https://github.com/flaneur-app/core" }
 # Pinned to the upstream `feat/deobf-extractor` branch: it fixes player.js deobfuscation,
 # playlists, channel items, Shorts tabs and subscriber counts against today's YouTube, none of
 # which crates.io 0.11.4 handles. Back to crates.io once a release carries these fixes.
@@ -26,7 +26,7 @@ tracing = "0.1.44"
 url = "2.5.9"
 
 [dev-dependencies]
-flaneur-vm = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
+flaneur-vm = { git = "https://github.com/flaneur-app/core" }
 tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
 
 [lints.rust]
