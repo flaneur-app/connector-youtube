@@ -1,0 +1,11 @@
+[
+  "connector",
+  "auth",
+  "player",
+  "docs",
+  "deps",
+  "ci",
+  "ai",
+  "build",
+  "test"
+]
