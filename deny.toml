@@ -30,6 +30,18 @@ allow = [
 ]
 confidence-threshold = 0.9
 
+# RustyPipe (and its deobfuscator crate) declare the deprecated SPDX id "GPL-3.0", which means
+# GPL-3.0-only; the repository's LICENSE is the plain GPL-3.0 text, with no "or later" notice.
+[[licenses.clarify]]
+crate = "rustypipe"
+expression = "GPL-3.0-only"
+license-files = []
+
+[[licenses.clarify]]
+crate = "rustypipe-deobfuscator"
+expression = "GPL-3.0-only"
+license-files = []
+
 [bans]
 multiple-versions = "warn"
 wildcards = "deny"
@@ -38,4 +50,8 @@ allow-wildcard-paths = true
 [sources]
 unknown-registry = "deny"
 unknown-git = "deny"
-allow-git = ["https://github.com/flaneur-app/core"]
+allow-git = [
+  "https://github.com/flaneur-app/core",
+  # RustyPipe, pinned to a revision of its `feat/deobf-extractor` branch (see Cargo.toml).
+  "https://codeberg.org/ThetaDev/rustypipe",
+]

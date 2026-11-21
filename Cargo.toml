@@ -1,0 +1,39 @@
+[package]
+name = "flaneur-connector-youtube"
+description = "YouTube connector of Flâneur, built on RustyPipe (InnerTube)."
+version = "0.0.0"
+edition = "2024"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/flaneur-app/connector-youtube"
+rust-version = "1.100"
+publish = false
+
+[dependencies]
+flaneur-model = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
+flaneur-connector = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
+# Pinned to the upstream `feat/deobf-extractor` branch: it fixes player.js deobfuscation,
+# playlists, channel items, Shorts tabs and subscriber counts against today's YouTube, none of
+# which crates.io 0.11.4 handles. Back to crates.io once a release carries these fixes.
+rustypipe = { git = "https://codeberg.org/ThetaDev/rustypipe", rev = "597db1797ad48238bc9a8b222356e65e0303b6f4", features = ["userdata"] }
+async-trait = "0.1.92"
+data-encoding = "2.9"
+reqwest = { version = "0.13", default-features = false, features = ["default-tls"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0"
+time = "0.3"
+tokio = { version = "1.54.1", features = ["macros"] }
+tracing = "0.1.44"
+url = "2.5.9"
+
+[dev-dependencies]
+flaneur-vm = { git = "https://github.com/flaneur-app/core", branch = "feat/core-structure" }
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
