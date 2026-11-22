@@ -27,6 +27,9 @@ url = "2.5.9"
 
 [dev-dependencies]
 flaneur-vm = { git = "https://github.com/flaneur-app/core" }
+# The app enables reqwest's `http2` through the other connectors; enabling it here too makes the
+# live tests run under the same feature set (YouTube's headers overflow hyper's HTTP/2 limit).
+reqwest = { version = "0.13", default-features = false, features = ["http2"] }
 tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
 
 [lints.rust]

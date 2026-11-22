@@ -75,8 +75,15 @@ fn build_client(cache: &Arc<CacheStore>, botguard: bool) -> Result<RustyPipe> {
         builder = builder.no_botguard();
     }
     builder
-        .build()
+        .build_with_client(http1_client())
         .map_err(|e| error::map(e, &Redactor::default()))
+}
+
+/// HTTP/1.1 only. YouTube's answers carry more header bytes (about 17 KiB) than hyper accepts
+/// over HTTP/2 (16 KiB), which resets the stream. An app that enables reqwest's `http2` feature
+/// through another crate would otherwise turn it on for these clients too.
+fn http1_client() -> reqwest::ClientBuilder {
+    reqwest::Client::builder().http1_only()
 }
 
 impl YouTube {
@@ -84,7 +91,7 @@ impl YouTube {
     pub fn new(config: Config) -> Result<Self> {
         let cache = CacheStore::new(config.cache_file);
         let client = build_client(&cache, config.botguard)?;
-        let http = reqwest::Client::builder()
+        let http = http1_client()
             .timeout(std::time::Duration::from_secs(20))
             .build()
             .map_err(|e| Error::Network(e.to_string()))?;
